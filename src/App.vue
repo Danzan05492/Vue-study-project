@@ -1,7 +1,17 @@
 <template>
 <div class="app">
+<<<<<<< HEAD
   <PostForm/>
   <PostList v-bind:posts="posts"/>
+=======
+  <post-form
+   @create="createPost"
+   />
+   <post-list
+   :posts="posts"
+   @remove="removePost"
+   />
+>>>>>>> 38431b2 (add components and library for global export of components)
 </div>
 </template>
 
@@ -20,6 +30,7 @@ export default{
         {id: 2, title: 'Javascript 2', body: 'Описание поста 2'},
         {id: 3, title: 'Javascript 3', body: 'Описание поста 3'},
       ],
+<<<<<<< HEAD
       title: '',
       body: ''
     }
@@ -35,6 +46,17 @@ export default{
       this.title = '';
       this.body = '';
     },
+=======
+    }
+  },
+  methods: {
+    createPost(post){
+      this.posts.push(post);
+    },
+    removePost(post){
+      this.posts= this.posts.filter(p => p.id !== post.id);
+    }
+>>>>>>> 38431b2 (add components and library for global export of components)
   }
 }
 </script>
