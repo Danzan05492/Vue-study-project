@@ -1,14 +1,4 @@
 <template>
-<<<<<<< HEAD
-    <div class="post" v-for="post in posts" :key="post.id">
-        <div><strong>Название:</strong>{{ post.title }}</div>
-        <div><strong>описание:</strong>{{ post.body }}</div>
-    </div>
-</template>
-
-<script>
-export default{
-=======
     <div v-if="this.posts.length > 0">
         <h3>Список постов</h3>
         <post-item
@@ -26,7 +16,6 @@ export default{
 import PostItem from "@/components/PostItem.vue";
 export default{
     components: { PostItem},
->>>>>>> 38431b2 (add components and library for global export of components)
     props:{
         posts:{
             type: Array,

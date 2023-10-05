@@ -1,9 +1,5 @@
 <template>
 <div class="app">
-<<<<<<< HEAD
-  <PostForm/>
-  <PostList v-bind:posts="posts"/>
-=======
   <post-form
    @create="createPost"
    />
@@ -11,7 +7,6 @@
    :posts="posts"
    @remove="removePost"
    />
->>>>>>> 38431b2 (add components and library for global export of components)
 </div>
 </template>
 
@@ -30,23 +25,6 @@ export default{
         {id: 2, title: 'Javascript 2', body: 'Описание поста 2'},
         {id: 3, title: 'Javascript 3', body: 'Описание поста 3'},
       ],
-<<<<<<< HEAD
-      title: '',
-      body: ''
-    }
-  },
-  methods: {
-    createPost(){
-      const newPost = {
-        id: Date.now(),
-        title: this.title,
-        body: this.body,
-      }
-      this.posts.push(newPost);
-      this.title = '';
-      this.body = '';
-    },
-=======
     }
   },
   methods: {
@@ -56,7 +34,6 @@ export default{
     removePost(post){
       this.posts= this.posts.filter(p => p.id !== post.id);
     }
->>>>>>> 38431b2 (add components and library for global export of components)
   }
 }
 </script>
