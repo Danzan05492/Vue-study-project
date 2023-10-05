@@ -3,6 +3,7 @@
   <h1>Страница с постами</h1>
   <my-button
   @click="showDialog"
+  style="margin: 15px 0;"
   >
     Создать пост
   </my-button>
@@ -14,13 +15,16 @@
    <post-list
    :posts="posts"
    @remove="removePost"
+   v-if="!isPostLoading"
    />
+   <div v-else>Идет Загрузка...</div>
 </div>
 </template>
 
 <script>
 import PostForm from "./components/PostForm.vue"
 import PostList from "./components/PostList.vue"
+import axios from 'axios';
 
 export default{
   components: {
@@ -28,25 +32,40 @@ export default{
   },
   data(){
     return{
-      posts: [
-        {id: 1, title: 'Javascript', body: 'Описание поста'},
-        {id: 2, title: 'Javascript 2', body: 'Описание поста 2'},
-        {id: 3, title: 'Javascript 3', body: 'Описание поста 3'},
-      ],
+      posts: [],
       dialogVisible: false,
+      isPostLoading: false,
     }
   },
   methods: {
     createPost(post){
+      if (post.title !="" && post.body !=""){
       this.posts.push(post);
       this.dialogVisible = false;
+      }
     },
     removePost(post){
       this.posts= this.posts.filter(p => p.id !== post.id);
     },
     showDialog(){
       this.dialogVisible = true;
+    },
+    async fetchPosts(){
+      try {
+        this.isPostLoading = true;
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+        this.posts= response.data;
+      } 
+      catch(e){
+        alert('Ошибочка')
+      }
+      finally{
+        this.isPostLoading=false;
+      }
     }
+  },
+  mounted(){
+    this.fetchPosts();
   }
 }
 </script>
