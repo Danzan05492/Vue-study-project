@@ -25,4 +25,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Video
 1h08m min https://www.youtube.com/watch?v=XzLuMtDelGk
-### Дгиыфт пфн
+
