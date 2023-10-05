@@ -24,5 +24,5 @@ npm run lint
 See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Video
-1h08m min https://www.youtube.com/watch?v=XzLuMtDelGk
+1h 38m https://www.youtube.com/watch?v=XzLuMtDelGk
 
