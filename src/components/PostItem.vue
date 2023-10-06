@@ -1,8 +1,8 @@
 <template>
     <li class="post">
         <div>
-        <div style="text-align: left;"><strong>Название:</strong>{{ post.title }}</div>
-        <div style="text-align: left;"><strong>Описание:</strong>{{ post.body }}</div>    
+        <div style="text-align: left; margin-bottom: 10px;"><strong>Название:</strong>{{ post.title }}</div>
+        <div style="text-align: left; "><strong>Описание:</strong>{{ post.body }}</div>    
         </div>
         <div class="post__btns">
             <my-button
@@ -35,8 +35,8 @@
     border: 2.5px solid teal;
     margin-left: 15px;
     margin-top: 15px;
-    min-height: 300px;
-    min-width: 200px;
+    min-height: 320px;
+    min-width: 250px;
     vertical-align: top;
     position: relative;
 }
