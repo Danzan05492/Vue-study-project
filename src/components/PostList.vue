@@ -29,6 +29,7 @@ export default{
 .post{
   padding: 15px;
   border: 2.5px solid teal;
+  border-radius: 15px;
   margin-top: 15px;
 }
 </style>
