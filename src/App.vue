@@ -1,6 +1,11 @@
 <template>
 <div class="app">
   <h1>Страница с постами</h1>
+    <my-input
+    v-model="searchQuery"
+    placeholder="Поиск..."
+    >
+    </my-input>
   <div class="app__btns">
     <my-button
       @click="showDialog"
@@ -19,11 +24,24 @@
     />
   </my-dialog>
     <post-list
-      :posts="sortedPosts"
+      :posts="sortedAndSearchedPost"
       @remove="removePost"
       v-if="!isPostLoading"
    />
    <div v-else>Идет Загрузка...</div>
+   <div class="page__wrapper">
+    <div
+    v-for="pageNumber in totalPages" 
+    :key="pageNumber"
+    class="page"
+    :class="{
+      'current-page': page === pageNumber
+    }"
+    @click="changePage(pageNumber)"
+    >
+      {{ pageNumber }}
+    </div>
+   </div>
 </div>
 </template>
 
@@ -41,7 +59,11 @@ export default{
       posts: [],
       dialogVisible: false,
       isPostLoading: false,
+      searchQuery: '',
       selectedSort: '',
+      page: 1,
+      limit: 10,
+      totalages: 0,
       sortOptions:[
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -61,10 +83,20 @@ export default{
     showDialog(){
       this.dialogVisible = true;
     },
+    changePage(pageNumber){
+      this.page = pageNumber
+      this.fetchPosts()
+    },
     async fetchPosts(){
       try {
         this.isPostLoading = true;
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts?_limit=10');
+        const response = await axios.get('https://jsonplaceholder.typicode.com/posts',{
+          params: {
+            _page: this.page,
+            _limit: this.limit,
+          }
+        });
+        this.totalPages = Math.ceil(response.headers['x-total-count'] / this.limit)
         this.posts= response.data;
       } 
       catch(e){
@@ -79,6 +111,9 @@ export default{
     this.fetchPosts();
   },
   watch:{
+    page(){
+      this.fetchPosts()
+    }
     /**
     selectedSort(newValue){
       this.posts.sort((post1, post2) => {
@@ -90,6 +125,9 @@ export default{
   computed:{
     sortedPosts(){
       return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]))
+    },
+    sortedAndSearchedPost(){
+      return this.sortedPosts.filter(post => post.title.toLowerCase().includes(this.searchQuery.toLowerCase()))
     }
   },
 }
@@ -108,5 +146,16 @@ export default{
   margin: 15px 0;
   display: flex;
   justify-content: space-between;
+}
+.page__wrapper{
+  display: flex;
+  margin-top: 15px;
+}
+.page{
+  border: 1px solid black;
+  padding: 10 px;
+}
+.current-page{
+  border: 2px solid teal;
 }
 </style>
