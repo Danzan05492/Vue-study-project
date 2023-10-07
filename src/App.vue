@@ -29,18 +29,18 @@
       v-if="!isPostLoading"
    />
    <div v-else>Идет Загрузка...</div>
-   <div class="page__wrapper">
-    <div
-    v-for="pageNumber in totalPages" 
-    :key="pageNumber"
-    class="page"
-    :class="{
-      'current-page': page === pageNumber
-    }"
-    @click="changePage(pageNumber)"
+   <div class="pagination" v-if="this.posts.length > 0">
+    <a
+      v-for="pageNumber in totalPages" 
+      :key="pageNumber"
+        class="page"
+          :class="{
+            'current-page': page === pageNumber
+          }"
+      @click="changePage(pageNumber)"
     >
       {{ pageNumber }}
-    </div>
+        </a>
    </div>
 </div>
 </template>
@@ -62,8 +62,8 @@ export default{
       searchQuery: '',
       selectedSort: '',
       page: 1,
-      limit: 10,
-      totalages: 0,
+      limit: 8,
+      totalPages: 0,
       sortOptions:[
         {value: 'title', name: 'По названию'},
         {value: 'body', name: 'По содержимому'},
@@ -147,15 +147,26 @@ export default{
   display: flex;
   justify-content: space-between;
 }
-.page__wrapper{
-  display: flex;
+.pagination {
+  width: 100%;
+  text-align: center;
   margin-top: 15px;
 }
-.page{
-  border: 1px solid black;
-  padding: 10 px;
+
+.pagination a {
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
 }
-.current-page{
-  border: 2px solid teal;
+
+.pagination a.active {
+  background-color: teal;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
 }
 </style>
